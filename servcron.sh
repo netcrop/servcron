@@ -27,16 +27,20 @@ servcron.substitute()
     includedir=/usr/local/include/
     bindir=/usr/local/bin/
     etcdir=/usr/local/etc/
+    banner=/etc/ssh/banner
     \builtin source <($cat<<-SUB
  
 servcron.status()
 {
+    [[ -w $banner ]] || {
+        \builtin echo "$banner invalid."
+    }
     declare -a Units=(\$(<$etcdir/servcron.conf))
     declare -a Res=(\$($systemctl --no-pager --property=Id,ActiveState,SubState \
     show \${Units[@]} | $perl -pe 's;\n;@;g' | $perl -pe 's;@@;\n;g'))
     for ((i=0;i<\${#Res[@]};i++));do
         $egrep -q "active|dead" <<<\${Res[i]} || continue
-        \builtin printf "%s\n" \$i >> /etc/ssh/banner
+        \builtin printf "%s\n" \$i >> $banner
     done
 }
 servcron.reconfig()
