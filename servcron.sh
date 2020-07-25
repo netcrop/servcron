@@ -36,7 +36,7 @@ servcron.status.pull()
     local help="[host] [port]"
     local host=\${1:?\$help}
     local port=\${2:-$port}
-    local res=\$($ssh -T servcron@\$host -o port=\$port 2>&1 |$cut -d: -f1)
+    local res=\$($ssh -T servcron@\$host -o port=\$port 2>&1 |$cut -d' ' -f1)
     $egrep -q ":servcron@\$host:" <<<\$res || {
         $cp /dev/null $etcdir/pull
         return 
