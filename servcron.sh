@@ -30,7 +30,7 @@ servcron.substitute()
     banner=/etc/ssh/banner
     \builtin source <($cat<<-SUB
  
-servcron.status()
+servcron.status.push()
 {
     [[ -w $banner ]] || {
         \builtin echo "$banner invalid."
