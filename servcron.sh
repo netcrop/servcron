@@ -38,7 +38,7 @@ servcron.install.pushcron()
     $sudo $cp conf/servcron.push.timer $systemdlibdir
     $sudo $chmod go=r $systemdlibdir/servcron.push.service
     $sudo $chmod go=r $systemdlibdir/servcron.push.timer
-    $sudo $ln -s $systemdlibdir/servcron.push.timer \
+    $sudo $ln -fs $systemdlibdir/servcron.push.timer \
     $systemdlibdir/timers.target.wants/servcron.push.timer
 }
 servcron.uninstall.pushcron()
