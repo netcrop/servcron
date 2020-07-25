@@ -55,6 +55,7 @@ servcron.uninstall.pushcron()
     $sudo $rm -f $systemdlibdir/servcron.push.timer
     $sudo $rm -f $systemdlibdir/timers.target.wants/servcron.push.timer
     $sudo $rm -f /var/lib/systemd/timers/stamp-servcron.push.timer.timer
+    $sudo $systemctl daemon-reload
 }
 servcron.pull()
 {
