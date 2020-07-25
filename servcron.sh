@@ -32,7 +32,7 @@ servcron.substitute()
     port=${CONAGENTREMOTEPORT:-22}
     \builtin source <($cat<<-SUB
 
-servcron.install()
+servcron.install.pushcron()
 {
     $sudo $cp conf/servcron.push.service $systemdlibdir
     $sudo $cp conf/servcron.push.timer $systemdlibdir
@@ -41,7 +41,7 @@ servcron.install()
     $sudo $ln -s $systemdlibdir/servcron.push.timer \
     $systemdlibdir/timers.target.wants/servcron.push.timer
 }
-servcron.uninstall()
+servcron.uninstall.pushcron()
 {
     $sudo $rm -f $systemdlibdir/servcron.push.service
     $sudo $rm -f $systemdlibdir/servcron.push.timer
