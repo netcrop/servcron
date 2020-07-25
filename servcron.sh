@@ -34,9 +34,12 @@ servcron.status()
     declare -a Units=($(<$etcdir/servcron.conf))
     local res="\$($systemctl --no-pager --property=Id,ActiveState,SubState \
     show \${Units[@]})"
-    for i in \$res;do
-        echo \$i:
-    done
+    $python - "\$res" <<'SERVCRONSTATUS'
+    import sys,re
+    if __name == '__main__':
+        res = sys.argv[1]
+        print(res)
+SERVCRONSTATUS
 }
 servcron.reconfig()
 {
