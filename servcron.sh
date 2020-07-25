@@ -38,7 +38,8 @@ servcron.install.pullcron()
         \builtin echo "servcron.pull not defined."
         return 1
     }
-    bash.fun2script servcron.pull $USER:$USER u=rx,go=
+    local host=\${1:?[host]}
+    bash.fun2script servcron.pull $USER:$USER u=rx,go= \${host}
     $sudo $cp conf/servcron.pull.service $systemdlibdir
     $sudo $cp conf/servcron.pull.timer $systemdlibdir
     $sudo $chmod go=r $systemdlibdir/servcron.pull.service
