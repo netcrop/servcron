@@ -3,7 +3,7 @@ servcron.substitute()
     local reslist devlist libdir includedir bindir cmd i perl_version \
     vendor_perl \
     cmdlist='dirname basename cat mv sudo cp chmod ln chown rm touch
-    head mkdir perl mktemp shred grep egrep sed systemctl python'
+    head mkdir perl mktemp shred grep egrep sed systemctl'
 
     declare -A Devlist=(
     )
@@ -31,10 +31,10 @@ servcron.substitute()
  
 servcron.status()
 {
-    declare -a Units=($(<$etcdir/servcron.conf))
+    declare -a Units=(\$(<$etcdir/servcron.conf))
     declare -a Res=(\$($systemctl --no-pager --property=Id,ActiveState,SubState \
     show \${Units[@]} | $perl -pe 's;\n;@;g' | $perl -pe 's;@@;\n;g'))
-    for((i=0;i<\${#Res[@]};i++));do
+    for ((i=0;i<\${#Res[@]};i++));do
         $egrep -q "active|dead" <<<\${Res[i]} || continue
         \builtin printf "%s\n" \$i >> /etc/ssh/banner
     done
