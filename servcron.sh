@@ -34,7 +34,9 @@ servcron.status()
     declare -a Units=($(<$etcdir/servcron.conf))
     declare -a Res=(\$($systemctl --no-pager --property=Id,ActiveState,SubState \
     show \${Units[@]} | \$perl -pe 's;\n;@;g' | $perl -pe 's;@@;\n;g'))
-    echo \${Res[0]}
+    for i in \${Res[@]};do
+        $egrep "active|running" <<<\$i
+    done
 }
 servcron.reconfig()
 {
