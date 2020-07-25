@@ -126,9 +126,10 @@ servcron.push()
 servcron.reconfig()
 {
     local conffile=\${1:-"conf/servcron.conf"}
-    $mkdir -p $etcdir
-    $cp -f conf/servcron.conf $etcdir/servcron.conf
-    $chmod u=r $etcdir/servcron.conf
+    $sudo $mkdir -p $etcdir
+    $sudo $cp -f conf/servcron.conf $etcdir/servcron.conf
+    $sudo $chown \$USER:\$USER $etcdir/servcron.conf
+    $sudo $chmod u=r $etcdir/servcron.conf
 }
 SUB
 )
