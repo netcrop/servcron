@@ -34,6 +34,11 @@ servcron.substitute()
 
 servcron.install.pushcron()
 {
+    \builtin declare -F servcron.push >/dev/null || {
+        \builtin echo "servcron.push not defined."
+        return 1
+    }
+    bash.fun2script servcron.push $USER:$USER u=rx,go=
     $sudo $cp conf/servcron.push.service $systemdlibdir
     $sudo $cp conf/servcron.push.timer $systemdlibdir
     $sudo $chmod go=r $systemdlibdir/servcron.push.service
