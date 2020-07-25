@@ -28,9 +28,24 @@ servcron.substitute()
     bindir=/usr/local/bin/
     etcdir=/usr/local/etc/servcron/
     banner=/etc/ssh/banner
+    systemdlibdir=/lib/systemd/system/
     port=${CONAGENTREMOTEPORT:-22}
     \builtin source <($cat<<-SUB
 
+servcron.install()
+{
+    $sudo $cp conf/servcron.push.service $systemdlibdir
+    $sudo $cp conf/servcron.push.timer $systemdlibdir
+    $sudo $chmod go=r $systemdlibdir/servcron.push.service
+    $sudo $chmod go=r $systemdlibdir/servcron.push.timer
+    $sudo $ln -s $systemdlibdir/servcron.push.timer \
+    $systemdlibdir/timers.target.wants/servcron.push.timer
+}
+servcron.uninstall()
+{
+    $sudo $rm -f $systemdlibdir/servcron.push.service
+    $sudo $rm -f $systemdlibdir/servcron.push.timer
+}
 servcron.status.pull()
 {
     local help="[host] [port]"
