@@ -37,7 +37,7 @@ servcron.status()
     $python - "\$res" <<'SERVCRONSTATUS'
 #!$env -S $python -I
 import sys,re
-if __name == '__main__':
+if __name__ == '__main__':
     res = sys.argv[1]
     print(res)
 SERVCRONSTATUS
