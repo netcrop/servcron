@@ -3,7 +3,7 @@ servcron.substitute()
     local reslist devlist libdir includedir bindir cmd i perl_version \
     vendor_perl \
     cmdlist='dirname basename cat mv sudo cp chmod ln chown rm touch
-    head mkdir perl mktemp shred grep egrep sed systemctl'
+    head mkdir perl mktemp shred grep egrep sed systemctl python'
 
     declare -A Devlist=(
     )
