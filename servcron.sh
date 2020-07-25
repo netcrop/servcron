@@ -3,7 +3,7 @@ servcron.substitute()
     local reslist devlist libdir includedir bindir cmd i perl_version \
     vendor_perl \
     cmdlist='dirname basename cat mv sudo cp chmod ln chown rm touch
-    head mkdir perl mktemp shred grep egrep sed'
+    head mkdir perl mktemp shred grep egrep sed systemctl'
 
     declare -A Devlist=(
     )
@@ -26,9 +26,14 @@ servcron.substitute()
     libdir=/usr/local/lib
     includedir=/usr/local/include/
     bindir=/usr/local/bin/
-
+    etcdir=/usr/local/etc/
     \builtin source <($cat<<-SUB
 
+servcron.reconfig()
+{
+    $cp conf/servcron.conf $etcdir/servcron.conf
+    $chmod u=r $etcdir/servcron.conf
+}
 SUB
 )
 }
