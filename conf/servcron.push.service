@@ -1,0 +1,10 @@
+[Unit]
+Description=Servcron status push
+ConditionACPower=true
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/servcron.status.push
+Nice=19
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
