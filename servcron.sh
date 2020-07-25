@@ -32,6 +32,36 @@ servcron.substitute()
     port=${CONAGENTREMOTEPORT:-22}
     \builtin source <($cat<<-SUB
 
+servcron.install.pullcron()
+{
+    \builtin declare -F servcron.pull >/dev/null || {
+        \builtin echo "servcron.pull not defined."
+        return 1
+    }
+    bash.fun2script servcron.pull $USER:$USER u=rx,go=
+    $sudo $cp conf/servcron.pull.service $systemdlibdir
+    $sudo $cp conf/servcron.pull.timer $systemdlibdir
+    $sudo $chmod go=r $systemdlibdir/servcron.pull.service
+    $sudo $chmod go=r $systemdlibdir/servcron.pull.timer
+    $sudo $ln -fs $systemdlibdir/servcron.pull.timer \
+    $systemdlibdir/timers.target.wants/servcron.pull.timer
+    $sudo $systemctl enable servcron.pull
+    $sudo $systemctl enable servcron.pull.timer
+    $sudo $systemctl start servcron.pull
+    $sudo $systemctl start servcron.pull.timer
+}
+servcron.uninstall.pullcron()
+{
+    $sudo $systemctl stop servcron.pull
+    $sudo $systemctl stop servcron.pull.timer
+    $sudo $systemctl disable servcron.pull
+    $sudo $systemctl disable servcron.pull.timer
+    $sudo $rm -f $systemdlibdir/servcron.pull.service
+    $sudo $rm -f $systemdlibdir/servcron.pull.timer
+    $sudo $rm -f $systemdlibdir/timers.target.wants/servcron.pull.timer
+    $sudo $rm -f /var/lib/systemd/timers/stamp-servcron.pull.timer.timer
+    $sudo $systemctl daemon-reload
+}
 servcron.install.pushcron()
 {
     \builtin declare -F servcron.push >/dev/null || {
