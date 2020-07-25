@@ -26,7 +26,7 @@ servcron.substitute()
     libdir=/usr/local/lib
     includedir=/usr/local/include/
     bindir=/usr/local/bin/
-    etcdir=/usr/local/etc/
+    etcdir=/usr/local/etc/servcron/
     banner=/etc/ssh/banner
     port=${CONAGENTREMOTEPORT:-22}
     \builtin source <($cat<<-SUB
@@ -55,6 +55,7 @@ servcron.status.push()
 servcron.reconfig()
 {
     local conffile=\${1:-"conf/servcron.conf"}
+    $mkdir -p $etcdir
     $cp -f conf/servcron.conf $etcdir/servcron.conf
     $chmod u=r $etcdir/servcron.conf
 }
