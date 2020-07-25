@@ -28,7 +28,12 @@ servcron.substitute()
     bindir=/usr/local/bin/
     etcdir=/usr/local/etc/
     \builtin source <($cat<<-SUB
-
+ 
+servcron.status()
+{
+    $systemctl --no-pager --property=ActiveState,SubState \
+    show "$(<$etcdir/servcron.conf)"
+}
 servcron.reconfig()
 {
     local conffile=\${1:-"conf/servcron.conf"}
