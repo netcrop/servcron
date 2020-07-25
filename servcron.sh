@@ -34,7 +34,7 @@ servcron.substitute()
 servcron.status.pull()
 {
     local help="[host] [port]"
-    local host=\${1:?}
+    local host=\${1:?\$help}
     local port=\${2:-$port}
     $ssh -T servcron@\$host -o port=\$port
 }
