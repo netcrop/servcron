@@ -70,7 +70,7 @@ servcron.push()
     declare -a Res=(\$($systemctl --no-pager --property=Id,ActiveState,SubState \
     show \${Units[@]} | $perl -pe 's;\n;@;g' | $perl -pe 's;@@;\n;g'))
     for ((i=0;i<\${#Res[@]};i++));do
-        $egrep -q "inactive|dead" <<<\${Res[i]} || continue
+        $egrep -q "inactive|dead|failed" <<<\${Res[i]} || continue
         \builtin printf "%s:" \$i >> $banner
     done
 }
