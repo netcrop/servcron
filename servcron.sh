@@ -48,7 +48,7 @@ servcron.uninstall.pushcron()
     $sudo $rm -f $systemdlibdir/timers.target.wants/servcron.push.timer
     $sudo $rm -f /var/lib/systemd/timers/stamp-servcron.push.timer.timer
 }
-servcron.status.pull()
+servcron.pull()
 {
     local help="[host] [port]"
     local host=\${1:?\$help}
@@ -60,7 +60,7 @@ servcron.status.pull()
     }
     \builtin printf "\$res" > $etcdir/pull
 }
-servcron.status.push()
+servcron.push()
 {
     [[ -w $banner ]] || {
         \builtin echo "$banner invalid."
