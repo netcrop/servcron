@@ -32,7 +32,7 @@ servcron.substitute()
 servcron.status()
 {
     declare -a Units=($(<$etcdir/servcron.conf))
-    $systemctl --no-pager --property=ActiveState,SubState \
+    $systemctl --no-pager --property=Id,ActiveState,SubState \
     show \${Units[@]}
 }
 servcron.reconfig()
