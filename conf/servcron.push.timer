@@ -1,5 +1,5 @@
 [Unit]
-Description=Servecron status push 
+Description=Servecron push timer 
 
 [Timer]
 OnCalendar=*-*-* *:*:00
