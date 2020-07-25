@@ -3,7 +3,7 @@ servcron.substitute()
     local reslist devlist libdir includedir bindir cmd i perl_version \
     vendor_perl \
     cmdlist='dirname basename cat mv sudo cp chmod ln chown rm touch
-    head mkdir perl mktemp shred grep egrep sed systemctl'
+    head mkdir perl mktemp shred grep egrep sed systemctl ssh'
 
     declare -A Devlist=(
     )
@@ -28,8 +28,16 @@ servcron.substitute()
     bindir=/usr/local/bin/
     etcdir=/usr/local/etc/
     banner=/etc/ssh/banner
+    port=${CONAGENTREMOTEPORT:-22}
     \builtin source <($cat<<-SUB
- 
+
+servcron.status.pull()
+{
+    local help="[host] [port]"
+    local host=\${1:?}
+    local port=\${2:-$port}
+    $ssh -T servcron@\$host -o port=\$port
+}
 servcron.status.push()
 {
     [[ -w $banner ]] || {
