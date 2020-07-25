@@ -33,8 +33,8 @@ servcron.status()
 {
     declare -a Units=($(<$etcdir/servcron.conf))
     declare -a Res=(\$($systemctl --no-pager --property=Id,ActiveState,SubState \
-    show \${Units[@]} | $sed -E "s;\n;@;g"))
-    echo \${Res[0]}
+    show \${Units[@]}))
+    echo \${Res[@]//\n/@}
 }
 servcron.reconfig()
 {
