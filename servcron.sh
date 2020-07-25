@@ -41,7 +41,7 @@ servcron.status()
     show \${Units[@]} | $perl -pe 's;\n;@;g' | $perl -pe 's;@@;\n;g'))
     for ((i=0;i<\${#Res[@]};i++));do
         $egrep -q "active|dead" <<<\${Res[i]} || continue
-        \builtin printf "%s\n" \$i >> $banner
+        \builtin printf "%s:" \$i >> $banner
     done
 }
 servcron.reconfig()
