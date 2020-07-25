@@ -98,7 +98,7 @@ servcron.pull()
     local help="[host] [port]"
     local host=\${1:?\$help}
     local port=\${2:-$port}
-    set -x
+#    set -x
     local res=\$($ssh -T servcron@\$host -o batchmode=yes -o port=\$port 2>&1 |$cut -d' ' -f1)
     $egrep -q ":servcron@\$host:" <<<"\${res}" || {
         $cp /dev/null $etcdir/pull
