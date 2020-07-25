@@ -78,6 +78,7 @@ servcron.push()
 {
     [[ -w $banner ]] || {
         \builtin echo "$banner invalid."
+        return 1
     }
     $cp /dev/null $banner
     declare -a Units=(\$(<$etcdir/servcron.conf))
