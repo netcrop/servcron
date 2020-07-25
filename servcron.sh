@@ -31,7 +31,8 @@ servcron.substitute()
 
 servcron.reconfig()
 {
-    $cp conf/servcron.conf $etcdir/servcron.conf
+    local conffile=\${1:-"conf/servcron.conf"}
+    $cp -f conf/servcron.conf $etcdir/servcron.conf
     $chmod u=r $etcdir/servcron.conf
 }
 SUB
