@@ -105,7 +105,7 @@ servcron.pull()
         set +x
         return 
     }
-    \builtin printf "\$res" > $etcdir/pull
+    \builtin printf "%s\n" "\$res" > $etcdir/pull
     set +x
 }
 servcron.push()
